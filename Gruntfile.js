@@ -1,14 +1,14 @@
 'use strict';
 module.exports = function (grunt) {
-  
+
   require('time-grunt')(grunt);
-  
+
   require('load-grunt-tasks')(grunt, {
     scope: 'devDependencies',
     config: 'package.json',
     pattern: ['grunt-*']
   });
-  
+
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
     shell: {
@@ -19,7 +19,7 @@ module.exports = function (grunt) {
         }
       },
       phpdoc: {
-        command: 'vendor/bin/phpdoc.php -d src/AJDurant/acrCloud/ -t doc',
+        command: 'vendor/bin/phpdoc -d src/ -t doc',
         options: {
           stdout: true
         }
@@ -51,8 +51,8 @@ module.exports = function (grunt) {
         spawnLimit: 10,
         swapPath: '_lint/tmp'
       },
-      good: ['src/AJDurant/acrCloud/*.php'],
-      bad: ['src/AJDurant/acrCloud/*.php']
+      good: ['src/*.php'],
+      bad: ['src/*.php']
     },
     version: {
       php: {
@@ -74,7 +74,7 @@ module.exports = function (grunt) {
   grunt.registerTask('init', [
     'shell:installComposer'
   ]);
-  
+
   grunt.registerTask('build', [
     'version:php',
     'version:json',
@@ -82,9 +82,9 @@ module.exports = function (grunt) {
     'phpunit',
     'shell:phpdoc',
     'shell:phpcpd'
-    
+
   ]);
-  
+
   grunt.registerTask('serve', [
     'build'
   ]);

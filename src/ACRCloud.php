@@ -11,7 +11,7 @@
 
 namespace AJDurant\ACRCloud;
 
-require(dirname(dirname(dirname(dirname(__FILE__)))) . '/vendor/autoload.php');
+require(dirname(dirname(__FILE__)) . '/vendor/autoload.php');
 
 /**
  * The ACRCloud class
@@ -58,7 +58,7 @@ class ACRCloud {
      * @param string|null $ffmpeg_path The path to the ffmpeg executable on the system
      * @since 0.1.0
      */
-    private function __construct ($access_key, $access_secret, $base_url = null, $ffmpeg_path = null)
+    public function __construct ($access_key, $access_secret, $base_url = null, $ffmpeg_path = null)
     {
         $this->access_key = $access_key;
         $this->access_secret = $access_secret;
@@ -99,7 +99,7 @@ class ACRCloud {
      * @param  integer $duration Length in seconds for trimming for fingerprinting
      * @return string            PCM data as a string
      */
-    private function getWavData($file_path, $start, $duration)
+    protected function getWavData($file_path, $start, $duration)
     {
 
         $command = escapeshellarg($this->ffmpeg_path) . ' -i ' . escapeshellarg($file_path) . ' -ac 1 -ar 8000 -f wav -ss ' . $start . ' -t ' . $duration. ' - 2>/dev/null';
@@ -122,7 +122,7 @@ class ACRCloud {
      * @param  string $data Audio data as a string
      * @return array        ACRCloud server response
      */
-    private function apiPost($data)
+    protected function apiPost($data)
     {
         $uri = $this->api_version . '/identify';
         $url = $this->base_url . $uri;
@@ -152,8 +152,8 @@ class ACRCloud {
             'sample' => $data,
             'signature_version' => $signature_version,
             'signature' => $signature,
-            'timestamp_utc' => $timestamp
-        ]
+            'timestamp' => $timestamp
+        ];
 
         $request = curl_init();
         curl_setopt($request, CURLOPT_URL, $url);

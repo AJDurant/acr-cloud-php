@@ -1,14 +1,53 @@
 <?php
-require_once(dirname(dirname(__FILE__)) . '/src/AJDurant/ACRCloud/ACRCloud.php');
-use AJDurant\ACRCloud\ACRCloud as myClass;
 
-class ACRCloudTest extends PHPUnit_Framework_TestCase
+namespace AJDurant\ACRCloudTest;
+
+use \AJDurant\ACRCloud\ACRCloud;
+
+class ACRCloudTest extends \PHPUnit_Framework_TestCase
 {
-	public function testCanBeNegated () {
-		$a = new myClass();
-		$a->increase(9)->increase(8);
-		$b = $a->negate();
-		$this->assertEquals(0, $b->myParam);
-	}
+    /**
+     * Call protected/private method of a class.
+     *
+     * @param object &$object    Instantiated object that we will run method on.
+     * @param string $methodName Method name to call
+     * @param array  $parameters Array of parameters to pass into method.
+     *
+     * @return mixed Method return.
+     */
+    private function invokeMethod(&$object, $methodName, array $parameters = array())
+    {
+        $reflection = new \ReflectionClass(get_class($object));
+        $method = $reflection->getMethod($methodName);
+        $method->setAccessible(true);
+
+        return $method->invokeArgs($object, $parameters);
+    }
+
+    public function testIdentifyNormal()
+    {
+        $acr = $this->getMockBuilder('\AJDurant\ACRCloud\ACRCloud')
+            ->setConstructorArgs(['key', 'secret'])
+            ->setMethods(['getWavData', 'apiPost'])
+            ->getMock();
+
+        $acr->expects($this->once())
+            ->method('getWavData')
+            ->with(
+                $this->equalTo('testfile'),
+                $this->equalTo(5),
+                $this->equalTo(20)
+            )->will($this->returnValue('wavdata'));
+
+        $acr->expects($this->once())
+            ->method('apiPost')
+            ->with(
+                $this->equalTo('wavdata')
+            )->will($this->returnValue('apiResponse'));
+
+        $data = $acr->identify('testfile');
+
+        $this->assertEquals('apiResponse', $data);
+    }
 
 }
