@@ -1,0 +1,33 @@
+{
+  "name": "AJDurant/acr-cloud-php",
+  "version": "0.1.0",
+  "homepage": "https://github.com/AJDurant/acr-cloud-php",
+  "description": "An ACRCloud API PHP client library",
+  "keywords": [
+    "php"
+  ],
+  "authors": [
+    {
+      "name": "AJDurant",
+      "homepage": "https://github.com/AJDurant",
+      "role": "Developer"
+    }
+  ],
+  "support": {
+    "issues": "https://github.com/AJDurant/acr-cloud-php/issues",
+    "source": "https://github.com/AJDurant/acr-cloud-php"
+  },
+  "license": "ISC",
+  "type": "library",
+  "require": {
+    "php": ">=5.4.0",
+    "monolog/monolog": "1.*",
+    "ext-curl": "*",
+    "lib-curl": "*"
+  },
+  "require-dev": {
+    "phpdocumentor/phpdocumentor": "2.*",
+    "phpunit/phpunit": "4.*",
+    "sebastian/phpcpd": "2.*"
+  }
+}
