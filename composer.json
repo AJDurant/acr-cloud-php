@@ -32,7 +32,7 @@
     },
     "require-dev": {
         "phpdocumentor/phpdocumentor": "2.*",
-        "phpunit/phpunit": "5.0.*",
+        "phpunit/phpunit": ">=4.8",
         "sebastian/phpcpd": "2.*"
     }
 }
