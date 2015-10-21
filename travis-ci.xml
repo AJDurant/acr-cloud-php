@@ -5,20 +5,23 @@
         bootstrap="vendor/autoload.php"
         colors="true"
         verbose="true">
-  <testsuite name="ACRCloud">
-    <directory suffix="Test.php">tests</directory>
-  </testsuite>
 
-  <env name="APIKEY" value="apikey"/>
-  <env name="APISECRET" value="apisecret"/>
+    <testsuite name="ACRCloud">
+        <directory suffix="Test.php">tests</directory>
+    </testsuite>
 
-  <logging>
-    <log type="coverage-text" target="php://stdout"/>
-  </logging>
+    <php>
+        <env name="APIKEY" value="apikey"/>
+        <env name="APISECRET" value="apisecret"/>
+    </php>
 
-  <filter>
-    <whitelist processUncoveredFilesFromWhitelist="true">
-      <directory suffix=".php">src</directory>
-    </whitelist>
-  </filter>
+    <logging>
+        <log type="coverage-text" target="php://stdout"/>
+    </logging>
+
+    <filter>
+        <whitelist processUncoveredFilesFromWhitelist="true">
+            <directory suffix=".php">src</directory>
+        </whitelist>
+    </filter>
 </phpunit>
