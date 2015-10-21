@@ -1,6 +1,8 @@
 acr-cloud-php
 ==============
 
+[![Build Status](https://travis-ci.org/AJDurant/acr-cloud-php.svg?branch=master)](https://travis-ci.org/AJDurant/acr-cloud-php)
+
 About
 --------------
 
