@@ -85,6 +85,8 @@ class ACRCloud {
 
         $data = $this->apiPost($wav_data);
 
+        $data = json_decode($data, true);
+
         return $data;
     }
 
@@ -159,6 +161,7 @@ class ACRCloud {
         curl_setopt($request, CURLOPT_URL, $url);
         curl_setopt($request, CURLOPT_POST, true);
         curl_setopt($request, CURLOPT_POSTFIELDS, $postfields);
+        curl_setopt($request, CURLOPT_RETURNTRANSFER, true);
 
         $response = curl_exec($request);
 

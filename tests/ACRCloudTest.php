@@ -43,11 +43,19 @@ class ACRCloudTest extends \PHPUnit_Framework_TestCase
             ->method('apiPost')
             ->with(
                 $this->equalTo('wavdata')
-            )->will($this->returnValue('apiResponse'));
+            )->will($this->returnValue('{"status":{"msg":"Testing JSON","code":1234,"version":"1.0"}}'));
 
         $data = $acr->identify('testfile');
 
-        $this->assertEquals('apiResponse', $data);
+        $dataAssert = [
+            'status' => [
+                'msg' => 'Testing JSON',
+                'code' => 1234,
+                'version'=> '1.0'
+            ]
+        ];
+
+        $this->assertEquals($dataAssert, $data);
     }
 
     public function testIdentifyParams()
@@ -69,11 +77,19 @@ class ACRCloudTest extends \PHPUnit_Framework_TestCase
             ->method('apiPost')
             ->with(
                 $this->equalTo('wavdata')
-            )->will($this->returnValue('apiResponse'));
+            )->will($this->returnValue('{"status":{"msg":"Testing JSON","code":1234,"version":"1.0"}}'));
 
         $data = $acr->identify('testfile', 10, 30);
 
-        $this->assertEquals('apiResponse', $data);
+        $dataAssert = [
+            'status' => [
+                'msg' => 'Testing JSON',
+                'code' => 1234,
+                'version'=> '1.0'
+            ]
+        ];
+
+        $this->assertEquals($dataAssert, $data);
     }
 
 }
