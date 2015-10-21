@@ -6,6 +6,16 @@ use \AJDurant\ACRCloud\ACRCloud;
 
 class ACRCloudTest extends \PHPUnit_Framework_TestCase
 {
+
+    private $api_key;
+    private $api_secret;
+
+    protected function setUp()
+    {
+        $this->api_key = getenv('APIKEY');
+        $this->api_secret = getenv('APISECRET');
+    }
+
     /**
      * Call protected/private method of a class.
      *
@@ -90,6 +100,16 @@ class ACRCloudTest extends \PHPUnit_Framework_TestCase
         ];
 
         $this->assertEquals($dataAssert, $data);
+    }
+
+    public function testApiPostNormal()
+    {
+        if ($this->api_key === 'apikey' || $this->api_secret === 'apisecret') {
+            $this->markTestSkipped('API Key or Secret not set');
+        } else {
+            $acr = new ACRCloud($this->api_key, $this->api_secret);
+            $this->markTestIncomplete('PCM data is not available for testing');
+        }
     }
 
 }

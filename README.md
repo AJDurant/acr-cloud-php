@@ -11,6 +11,19 @@ URL: [https://github.com/AJDurant/acr-cloud-php](https://github.com/AJDurant/acr
 Author: AJDurant
 
 
+Usage
+--------------
+
+Install through composer.
+
+```
+use \AJDurant\ACRCloud\ACRCloud;
+
+$acr = new ACRCloud(api_key, api_secret);
+$data = $acr->identify(path_to_audio_file);
+```
+Data returned is of the format described in the [ACRCloud Metadata Docs](https://docs.acrcloud.com/metadata) as a PHP associative array.
+
 
 Build dependencies
 --------------
