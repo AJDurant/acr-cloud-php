@@ -50,4 +50,30 @@ class ACRCloudTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('apiResponse', $data);
     }
 
+    public function testIdentifyParams()
+    {
+        $acr = $this->getMockBuilder('\AJDurant\ACRCloud\ACRCloud')
+            ->setConstructorArgs(['key', 'secret'])
+            ->setMethods(['getWavData', 'apiPost'])
+            ->getMock();
+
+        $acr->expects($this->once())
+            ->method('getWavData')
+            ->with(
+                $this->equalTo('testfile'),
+                $this->equalTo(10),
+                $this->equalTo(30)
+            )->will($this->returnValue('wavdata'));
+
+        $acr->expects($this->once())
+            ->method('apiPost')
+            ->with(
+                $this->equalTo('wavdata')
+            )->will($this->returnValue('apiResponse'));
+
+        $data = $acr->identify('testfile', 10, 30);
+
+        $this->assertEquals('apiResponse', $data);
+    }
+
 }
